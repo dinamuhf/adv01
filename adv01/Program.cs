@@ -44,4 +44,48 @@ namespace adv_c_1
             }
         }
     }
-    #endregion
+#endregion
+#region 2
+class Program
+{
+    static void Main()
+    {
+        Range<int> intRange = new Range<int>(10, 20);
+
+        Console.WriteLine("Is 15 in range? " + intRange.IsInRange(15)); // True
+        Console.WriteLine("Is 25 in range? " + intRange.IsInRange(25)); // False
+        Console.WriteLine("Range length: " + intRange.Length()); // 10
+
+        Range<double> doubleRange = new Range<double>(5.5, 10.5);
+        Console.WriteLine("Is 7.2 in range? " + doubleRange.IsInRange(7.2)); // True
+        Console.WriteLine("Range length: " + doubleRange.Length()); // 5.0
+    }
+}
+class Range<T> where T : IComparable<T>
+{
+    public T Min { get; }
+    public T Max { get; }
+
+    public Range(T min, T max)
+    {
+        if (min.CompareTo(max) > 0)
+            throw new ArgumentException("Minimum value cannot be greater than maximum value.");
+
+        Min = min;
+        Max = max;
+    }
+
+    public bool IsInRange(T value)
+    {
+        return value.CompareTo(Min) >= 0 && value.CompareTo(Max) <= 0;
+    }
+
+    public double Length()
+    {
+        dynamic minValue = Min;
+        dynamic maxValue = Max;
+        return (double)(maxValue - minValue);
+    }
+}
+
+#endregion
